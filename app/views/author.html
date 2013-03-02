@@ -1,0 +1,16 @@
+<h3>Snippets by {{profile.name}}</h3>
+<p ng-hide="snippets.length">No snippets found</p>
+
+<div class="language-badge-horizontal" ng-show="snippets.length" ng-repeat="snippet in snippets | orderBy:'updated':true">
+  <div class="language-icon-small language-badge-horizontal-icon">
+    <span class="{{icons[snippet.language]}}"></span>
+  </div>
+
+  <div class="language-badge-horizontal-text">
+    <a href="{{url.editSnippet(snippet.language, snippet._id)}}">{{snippet.name}}</a>
+  </div>
+
+  <div class="language-badge-horizontal-date">
+    {{snippet.updated | date:'medium'}}
+  </div>
+</div>

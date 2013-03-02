@@ -1,0 +1,16 @@
+<div class="snippet-header">
+  <div class="snippet-header-title">
+    <h2 contenteditable ng-model="name">Untitled</h2>
+  </div>
+
+  <div class="snippet-header-language">
+    <div class="language-icon-medium snippet-header-language-icon">
+      <span class="{{icons[language]}}"></span>
+    </div>
+  </div>
+</div>
+
+<div>
+  <textarea ui-codemirror="options" ng-model="code"></textarea>
+  <button class="btn btn-primary" ng-click="save(name, code)"><i class="icon-plus icon-white"></i> Save</button>
+</div>

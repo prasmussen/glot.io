@@ -1,0 +1,6 @@
+{
+    "language": "php",
+    "name": "Hello World",
+    "author": "_admin",
+    "code": "function main() {\n    print \"Hello World!\\n\";\n}\n\nmain();\n"
+}

@@ -1,0 +1,18 @@
+<div class="snippet-header">
+  <div class="snippet-header-title">
+    <h3><a href="{{url.composeSnippet(language._id)}}">Create new {{language.name}} snippet</a></h3>
+  </div>
+
+  <div class="snippet-header-language">
+    <div class="language-icon-medium snippet-header-language-icon">
+      <span class="{{icons[language._id]}}"></span>
+    </div>
+  </div>
+</div>
+
+<h3>Examples</h3>
+<ul class="unstyled">
+  <li ng-repeat="example in examples">
+    <h5><a href="{{url.editSnippet(language._id, example._id)}}">{{example.name}}</a></h5>
+  </li>
+</ul>

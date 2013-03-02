@@ -1,0 +1,18 @@
+<div class="header">
+  <h1>glot</h1>
+  <blockquote>
+    <p>a combining form with the meanings “having a tongue,” “speaking, writing, or written in a language”
+    of the kind or number specified by the initial element (i.e. polyglot).</p>
+    <small><a href="http://dictionary.reference.com/browse/glot">dictionary.reference.com</a></small>
+  </blockquote>
+</div>
+
+<h2>Create new snippet</h2>
+<div class="language-badge" ng-repeat="lang in languages">
+  <a href="{{url.composeSnippet(lang._id)}}">
+    <div class="language-icon-large language-badge-icon">
+      <span class="{{icons[lang._id]}}"></span>
+    </div>
+    <div class="language-badge-text">{{lang.name}}</div>
+  </a>
+</div>

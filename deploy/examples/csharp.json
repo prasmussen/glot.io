@@ -1,0 +1,6 @@
+{
+    "language": "csharp",
+    "name": "Hello World",
+    "author": "_admin",
+    "code": "using System;\n\npublic class Foo\n{\n    public static void Main()\n    {\n        Console.WriteLine(\"Hello, World!\");\n    }\n}\n"
+}

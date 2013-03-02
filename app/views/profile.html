@@ -1,0 +1,19 @@
+<div class="span6 offset3">
+  <h2>Profile</h2>
+  <form name="profileForm">
+    <fieldset>
+      <div class="control-group">
+        <div class="controls">
+          <div class="input-prepend">
+            <span class="add-on"><i class="icon-user"></i></span><input type="text" name="name" placeholder="Name" autofocus="autofocus" ng-model="user.name" required>
+          </div>
+        </div>
+      </div>
+      <p><a href="{{url.resetPassword()}}">Reset password</a></p>
+      <button class="btn btn-primary" ng-disabled="profileForm.$invalid" ng-click="save(user)">Save</button>
+    </fieldset>
+  </form>
+  <div ng-show="alert">
+    <alert type="alert.type" close="alert = null">{{alert.msg}}</alert>
+  </div>
+</div>

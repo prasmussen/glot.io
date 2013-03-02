@@ -1,0 +1,27 @@
+<div class="snippet-header">
+  <div class="snippet-header-title">
+    <h2 contenteditable ng-show="user._id == author" ng-model="newName"></h2>
+    <h2 ng-hide="user._id == author">{{name}}</h2>
+  </div>
+
+  <div class="snippet-header-language">
+    <div class="language-icon-medium snippet-header-language-icon">
+      <span class="{{icons[language]}}"></span>
+    </div>
+  </div>
+</div>
+
+<div>
+  <textarea ui-codemirror="options" ng-model="code"></textarea>
+  <button class="btn btn-primary" ng-click="run(code)"><i class="icon-play icon-white"></i> Run</button>
+  <button class="btn btn-success" ng-show="user._id == author" ng-click="save(newName, code)"><i class="icon-plus icon-white"></i> Save</button>
+  <button class="btn btn-inverse" ng-hide="user._id == author" ng-click="fork(code)"><i class="icon-random icon-white"></i> Fork</button>
+
+  <!-- Alert message -->
+  <div class="margin-top-20" ng-show="alert">
+    <alert type="alert.type" close="alert = null">{{alert.msg}}</alert>
+  </div>
+
+  <!-- Result output -->
+  <pre class="prettyprint linenums margin-top-20" ng-show="result.length > 0">{{result}}</pre>
+</div>

@@ -1,0 +1,128 @@
+<!doctype html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+  <head>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <title>glot.io</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width">
+
+    <!-- 3rd party imports -->
+    <link rel="stylesheet" href="/lib/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/lib/codemirror/codemirror.css">
+    <link rel="stylesheet" href="/lib/codemirror/theme/solarized.css">
+
+    <!-- Pictonic icon font -->
+    <link rel="stylesheet" href="/lib/pictonic/css/pictonic.css">
+    <!--[if lt IE 8]><script src="/lib/pictonic/js/pictonic.min.js"></script><![endif]-->
+
+    <!-- Custom css -->
+    <link rel="stylesheet" href="/styles/main.css">
+  </head>
+  <body ng-app="glotApp" ng-controller="RootController">
+    <!--[if lt IE 7]>
+      <p class="chromeframe">You are using an outdated browser. <a href="http://browsehappy.com/">Upgrade your browser today</a> or <a href="http://www.google.com/chromeframe/?redirect=true">install Google Chrome Frame</a> to better experience this site.</p>
+    <![endif]-->
+
+    <!--[if lt IE 9]>
+      <script src="/lib/es5-shim/es5-shim.min.js"></script>
+      <script src="/lib/json3/json3.min.js"></script>
+    <![endif]-->
+
+    <div class="navbar navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container">
+          <a class="brand" href="{{url.index()}}">glot.io</a>
+          <ul class="nav">
+            <li ui-route="{{url.index()}}" ng-class="{active: $uiRoute}"><a href="{{url.index()}}">Home</a></li>
+
+            <!-- Language selection dropdown -->
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown">Languages <b class="caret"></b></a>
+              <ul class="dropdown-menu">
+                <li class="nav-header">Choose language</li>
+                <li ng-repeat="lang in languages">
+                  <a href="{{url.language(lang._id)}}">{{lang.name}}</a>
+                </li>
+              </ul>
+            </li>
+          </ul>
+
+          <!-- Login / profile / logout dropdown -->
+          <ul class="nav pull-right ng-cloak">
+            <li ng-show="routeLoading"><a href="#"><i class="icon-time"></i></a></li>
+            <li ng-hide="user._id"><a href="{{url.login()}}">Log In</a></li>
+            <li class="dropdown" ng-show="user.name">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon-user"></i> {{user.name}} <b class="caret"></b></a>
+              <ul class="dropdown-menu">
+                <li class="nav-header">Actions</li>
+                <li><a href="{{url.authorSnippets(user._id)}}">My snippets</a></li>
+                <li><a href="{{url.profile()}}">Profile</a></li>
+                <li><a href ng-click="logout()">Logout</a></li>
+              </ul>
+            </li>
+          </ul>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- Dynamic content determined by the route -->
+    <div ng-hide="routeLoading || routeError" class="container content ng-cloak" ng-view></div>
+
+    <!-- Shown when route change failed -->
+    <div ng-show="routeError" class="container ng-cloak">
+      <h1>{{routeError.reason}}</h1>
+    </div>
+
+    <!-- 3rd party libraries -->
+    <script src="/lib/jquery/jquery-1.9.1.min.js"></script>
+    <script src="/lib/crypto-js/sha1.js"></script>
+    <script src="/lib/angular/angular.min.js"></script>
+    <script src="/lib/angular-ui/angular-ui.min.js"></script>
+    <script src="/lib/angular-bootstrap/ui-bootstrap-tpls-0.1.0.min.js"></script>
+    <script src="/lib/bootstrap/js/bootstrap.min.js"></script>
+    <script src="/lib/codemirror/codemirror-compressed.js"></script>
+
+    <!-- Custom code -->
+    <script src="/scripts/app.js"></script>
+    <script src="/scripts/controllers/main.js"></script>
+    <script src="/scripts/controllers/snippet.js"></script>
+    <script src="/scripts/controllers/root.js"></script>
+    <script src="/scripts/controllers/language.js"></script>
+    <script src="/scripts/controllers/compose.js"></script>
+    <script src="/scripts/controllers/author.js"></script>
+    <script src="/scripts/controllers/signup.js"></script>
+    <script src="/scripts/controllers/login.js"></script>
+    <script src="/scripts/controllers/profile.js"></script>
+    <script src="/scripts/services/snippets.js"></script>
+    <script src="/scripts/services/examples.js"></script>
+    <script src="/scripts/services/settings.js"></script>
+    <script src="/scripts/services/languages.js"></script>
+    <script src="/scripts/services/response.js"></script>
+    <script src="/scripts/services/utils.js"></script>
+    <script src="/scripts/services/segue.js"></script>
+    <script src="/scripts/services/profile.js"></script>
+    <script src="/scripts/services/user.js"></script>
+    <script src="/scripts/services/couch.js"></script>
+    <script src="/scripts/directives/passwordverify.js"></script>
+    <script src="/scripts/directives/contenteditable.js"></script>
+
+    <!-- Google analytics -->
+    <script type="text/javascript">
+      var _gaq = _gaq || [];
+      _gaq.push(['_setAccount', 'UA-38975419-1']);
+      _gaq.push(['_trackPageview']);
+
+      (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+      })();
+    </script>
+
+  </body>
+</html>

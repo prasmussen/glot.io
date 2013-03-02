@@ -1,0 +1,37 @@
+<div class="span6 offset3">
+  <h2>Sign up</h2>
+  <p>Already have an account? <a href="{{url.login()}}">Log in</a> to get started.</p>
+  <form name="signupForm" verifypassword="password verify">
+    <fieldset>
+      <div class="control-group" ng-class="{error: signupForm.email.$error.email}">
+        <div class="controls">
+          <div class="input-prepend">
+            <span class="add-on"><i class="icon-envelope"></i></span>
+            <input type="email" name="email" placeholder="Email" autofocus="autofocus" ng-model="email" ng-required="true">
+          </div>
+        </div>
+      </div>
+      <div class="control-group">
+        <div class="controls">
+          <div class="input-prepend">
+            <span class="add-on"><i class="icon-asterisk"></i></span>
+            <input type="password" name="password" placeholder="Password" ng-model="password">
+          </div>
+        </div>
+      </div>
+      <div class="control-group" ng-class="{error: signupForm.verify.$error.password}">
+        <div class="controls">
+          <div class="input-prepend">
+            <span class="add-on"><i class="icon-asterisk"></i></span>
+            <input type="password" name="verify" placeholder="Verify password" ng-model="verify" ng-required="true">
+          </div>
+        </div>
+      </div>
+
+      <button class="btn btn-primary" ng-disabled="signupForm.$invalid" ng-click="signUp(email, password)">Sign up</button>
+    </fieldset>
+  </form>
+  <div ng-show="alert">
+    <alert type="alert.type" close="alert = null">{{alert.msg}}</alert>
+  </div>
+</div>

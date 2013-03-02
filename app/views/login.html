@@ -1,0 +1,31 @@
+<div class="span6 offset3">
+  <h2>Login</h2>
+  <p>Need an account? <a href="{{url.signup()}}">Sign up</a> now to get started.</p>
+  <!-- <p>Have you forgotten your password? <a href ng-click="resetpassword = true">Reset your password</a> now.</p> -->
+  <form name="loginForm">
+    <fieldset>
+      <div class="control-group">
+        <div class="controls">
+          <div class="input-prepend">
+            <span class="add-on"><i class="icon-envelope"></i></span>
+            <input type="text" placeholder="Email" autofocus="autofocus" ng-model="email" ng-required="true">
+          </div>
+        </div>
+      </div>
+      <div class="control-group" ng-hide="resetpassword">
+        <div class="controls">
+          <div class="input-prepend">
+            <span class="add-on"><i class="icon-asterisk"></i></span>
+            <input type="password" placeholder="Password" ng-model="password" ng-required="true">
+          </div>
+        </div>
+      </div>
+      <button class="btn btn-primary" ng-disabled="loginForm.$invalid" ng-hide="resetpassword" ng-click="logIn(email, password)">Log in</button>
+      <!-- <button class="btn btn-primary" ng-show="resetpassword" ng-click="resetPassword(email)">Reset password</button> -->
+    </fieldset>
+  </form>
+  <div ng-show="alert">
+    <alert type="alert.type" close="alert = null">{{alert.msg}}</alert>
+  </div>
+</div>
+</div>
