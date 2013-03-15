@@ -30,6 +30,26 @@ db.save("_design/snippets", {
     }
 });
 
+db.save("_design/runs", {
+    views: {
+        results_by_snippet: {
+            map: function(doc) {
+                if (doc.type === "run" && doc.hasOwnProperty("result")) {
+                    emit(doc.snippet, doc);
+                }
+            }
+        },
+
+        by_codehash: {
+            map: function(doc) {
+                if (doc.type === "run") {
+                    emit([doc.language, doc.codehash], doc);
+                }
+            }
+        }
+    }
+});
+
 db.save("_design/examples", {
     views: {
         list: {
