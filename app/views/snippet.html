@@ -23,5 +23,7 @@
   </div>
 
   <!-- Result output -->
-  <pre class="prettyprint linenums margin-top-20" ng-show="result.length > 0">{{result}}</pre>
+  <pre class="prettyprint linenums margin-top-20 result-badge result-badge-stdout" ng-show="result.stdout">{{result.stdout}}</pre>
+  <pre class="prettyprint linenums margin-top-20 result-badge result-badge-stderr" ng-show="result.stderr">{{result.stderr}}</pre>
+  <pre class="prettyprint linenums margin-top-20 result-badge result-badge-error" ng-show="result.error">{{result.error}}</pre>
 </div>
