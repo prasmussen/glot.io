@@ -1,7 +1,6 @@
 'use strict';
 
-angular.module('glotApp').factory("Couch", function($http) {
-    //var PREFIX = "http://dev.glot.io:5984/";
+angular.module('glotApp').factory("Couch", function($http, Response) {
     var PREFIX = "/";
 
     function urlBuilder(base) {
@@ -53,6 +52,70 @@ angular.module('glotApp').factory("Couch", function($http) {
                 }
 
                 return method(url, data);
+            },
+
+            info: function() {
+                var url = join();
+                var req = $http.get(url);
+                return Response.toObject(req);
+            },
+
+            // Url format: /<db>/_changes?filter=<designName>/<filterName>&include_docs=true&<queryKey>=<queryValue>
+            changes: function(options) {
+                var listeners = [];
+                var active = true;
+                var timeout = 100;
+
+                var promise = {
+                    onChange: function(callback) {
+                        listeners.push(callback);
+                    },
+
+                    stop: function() {
+                        active = false;
+                    }
+                };
+
+                // Call each listener when there is a change
+                function triggerListeners(res) {
+                    listeners.forEach(function(fn) {
+                        fn(res);
+                    });
+                }
+
+                // TODO: fix url, all options are required atm
+                function getChangesSince() {
+                    var url = join("_changes");
+                    url += "?feed=longpoll&filter=" + options.filter + "&include_docs=" + options.include_docs + "&id=" + options.query_params.id + "&since=" + options.since;
+                    $http.get(url).success(changeSuccess).error(changeError);
+                }
+
+                function changeSuccess(res) {
+                    timeout = 100;
+                    if (active) {
+                        options.since = res.last_seq;
+                        triggerListeners(res)
+                        getChangesSince();
+                    }
+                }
+
+                function changeError(res) {
+                    if (active) {
+                        $timeout(getChangesSince, timeout);
+                        timeout = timeout * 2;
+                    }
+                }
+
+                if (options.since) {
+                    getChangesSince();
+                } else {
+                    db(dbName).info().success(function(data) {
+                        options.since = data.update_seq;
+                        getChangesSince();
+                    });
+                }
+
+                return promise;
             }
         };
     }
