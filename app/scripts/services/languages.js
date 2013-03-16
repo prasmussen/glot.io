@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('glotApp').factory('Languages', function($q, Response, Utils, Couch) {
+angular.module('glotApp').factory('Languages', function(Response, Couch) {
     return {
         // Get language by id
         get: function(id) {
