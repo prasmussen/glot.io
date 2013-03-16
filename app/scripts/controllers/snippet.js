@@ -30,8 +30,8 @@ function SnippetController($scope, $routeParams, $location, Utils, Segue, Snippe
     $scope.name = snippet.name;
     $scope.newName = snippet.name;
 
-    // Fetch run result for this snippet if it exists
-    $scope.result = Runs.resultByCode(snippet._id, snippet.code);
+    // Fetch run result for this code if it exists
+    $scope.result = Runs.resultByCode(language, snippet.code);
 
     $scope.fork = function(code) {
         // Add code to segue and redirect to the compose view
@@ -43,7 +43,7 @@ function SnippetController($scope, $routeParams, $location, Utils, Segue, Snippe
         $scope.result = {stdout: "Running..."};
 
         // Check if result already exists in the database
-        var r = Runs.resultByCode(snippet._id, code);
+        var r = Runs.resultByCode(language, code);
 
         // Result was found
         r.success(function(result) {

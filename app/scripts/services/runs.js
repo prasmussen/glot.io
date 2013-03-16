@@ -3,10 +3,10 @@
 // Service used to save and retreive runs from the database
 angular.module('glotApp').factory('Runs', function(Couch, Response) {
     return {
-        // Get result by snippetId and code
-        resultByCode: function(snippetId, code) {
+        // Get result by language and code
+        resultByCode: function(language, code) {
             code = code.trimRight();
-            var key = [snippetId, CryptoJS.SHA1(code).toString()];
+            var key = [language, CryptoJS.SHA1(code).toString()];
             var req = Couch.db("api").view("runs", "result_by_codehash", {key: key, limit: 1});
 
             // Reject response with zero rows
