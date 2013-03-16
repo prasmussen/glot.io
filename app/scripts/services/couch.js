@@ -13,6 +13,25 @@ angular.module('glotApp').factory("Couch", function($http, Response) {
         };
     }
 
+    // Convert a options object to an url query string.
+    // ex: {key:'value',key2:'value2'} becomes '?key="value"&key2="value2"'
+    function encodeOptions(options) {
+        if (typeof(options) !== "object" || options === null) {
+            return "";
+        }
+
+        var needJsonValue = ["key", "startkey", "endkey"];
+        var buf = [];
+        for (var name in options) {
+            var value = options[name];
+            if (needJsonValue.indexOf(name) >= 0 && value !== null) {
+                value = JSON.stringify(value);
+            }
+            buf.push(encodeURIComponent(name) + "=" + encodeURIComponent(value));
+        }
+        return buf.length ? "?" + buf.join("&") : "";
+    }
+
     function db(dbName) {
         var join = urlBuilder(PREFIX + dbName);
 
@@ -27,15 +46,10 @@ angular.module('glotApp').factory("Couch", function($http, Response) {
                 return $http.put(url, data);
             },
 
-            // Url format: /<dbName>/_design/<designName>/_view/<viewName>[?key=<key>]
-            view: function(designName, viewName, key) {
+            // Url format: /<dbName>/_design/<designName>/_view/<viewName>[?name=<value>,...]
+            view: function(designName, viewName, options) {
                 var url = join("_design", designName, "_view", viewName);
-
-                // Add query key if given
-                if (key) {
-                    url += "?key=" + JSON.stringify(key);
-                }
-
+                url += encodeOptions(options);
                 return $http.get(url);
             },
 
