@@ -35,7 +35,7 @@ db.save("_design/runs", {
         result_by_codehash: {
             map: function(doc) {
                 if (doc.type === "run" && doc.hasOwnProperty("result")) {
-                    emit([doc.snippet, doc.codehash], doc);
+                    emit([doc.language, doc.codehash], doc);
                 }
             }
         }
