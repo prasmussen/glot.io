@@ -17,6 +17,13 @@ angular.module('glotApp').factory('Response', function($q, Utils) {
         return Utils.successErrorPromise(deferred);
     }
 
+    function getValueTransform(attr) {
+        return function(data) {
+            var obj = toObjectTransform(data)
+            return (obj && obj.hasOwnProperty(attr)) ? obj[attr] : null;
+        };
+    }
+
     function toArrayTransform(data) {
         return data.rows.map(function(row) {
             return row.value;
@@ -63,6 +70,13 @@ angular.module('glotApp').factory('Response', function($q, Utils) {
         // into a normalized js array
         toArray: function(req) {
             return dataTransform(req, toArrayTransform);
+        },
+
+        // Transforms the success data of a $http request,
+        // into a single normalized js value
+        getValue: function(req, attr) {
+            var transform = getValueTransform(attr);
+            return dataTransform(req, transform);
         },
 
         rejectZeroRows: function(req) {
