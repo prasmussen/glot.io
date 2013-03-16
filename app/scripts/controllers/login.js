@@ -9,13 +9,11 @@ function LoginController($scope, $location, User, Url) {
     };
 
     function success(data) {
+        // Redirect to index view
         $location.path(Url._index());
     }
 
     function error(data) {
-        $scope.alert = {
-            type: 'error',
-            msg: data.reason
-        };
+        alertify.error(data.reason);
     }
 }

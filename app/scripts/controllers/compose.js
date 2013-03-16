@@ -35,12 +35,12 @@ function ComposeController($scope, $routeParams, $location, Snippets, Utils, Seg
     };
 
     function saveSuccess(data) {
+        alertify.success("Snippet saved");
         // Redirect to snippet view
         $location.path(Url._editSnippet(language, data._id));
     }
 
     function saveError(data) {
-        console.log("error");
-        console.log(data);
+        alertify.error(data.reason);
     }
 }

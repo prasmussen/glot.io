@@ -2,9 +2,15 @@
 
 function ProfileController($scope, $route, $timeout, User, Profile) {
     $scope.save = function(user) {
-        Profile.save(user.name, user._id, user._rev)
-            .success(saveSuccess)
-            .error(error);
+        var r = Profile.save(user.name, user._id, user._rev);
+
+        r.success(function(data) {
+            // Update document revision
+            user._rev = data.rev;
+            alertify.success("Save successful");
+        });
+
+        r.error(error);
     };
 
     $scope.resetPassword = function(password, user) {
@@ -18,27 +24,14 @@ function ProfileController($scope, $route, $timeout, User, Profile) {
             });
     };
 
-    function saveSuccess(data) {
-        $scope.alert = {
-            type: "success",
-            msg: "Save successful"
-        };
-    }
-
     function resetSuccess() {
-        $scope.alert = {
-            type: "success",
-            msg: "Password updated, reloading..."
-        };
+        alertify.success("Password updated");
 
-        // Reload route after 2 seconds, to update state
-        $timeout($route.reload, 1500);
+        // Reload route
+        $route.reload();
     }
 
     function error(data) {
-        $scope.alert = {
-            type: "error",
-            msg: data.reason
-        };
+        alertify.error(data.reason);
     }
 }

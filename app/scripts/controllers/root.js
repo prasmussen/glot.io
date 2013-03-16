@@ -1,6 +1,6 @@
 'use strict';
 
-function RootController($scope, $rootScope, Languages, Profile, User, Url) {
+function RootController($scope, $rootScope, $location, Languages, Profile, User, Url) {
     $scope.url = Url;
     $scope.languages = Languages.list();
 
@@ -19,6 +19,8 @@ function RootController($scope, $rootScope, Languages, Profile, User, Url) {
     $scope.logout = function() {
         User.logout().success(function() {
             $scope.user = null;
+            // Redirect to login view
+            $location.path(Url._login());
         });
     };
 

@@ -8,16 +8,13 @@ function SignupController($scope, $location, User, Url) {
         User.create(id, email, password).error(error).success(function() {
             // Authenticate user
             User.authenticate(id, password).success(function() {
-                // Redirect user
+                // Redirect user to profile view
                 $location.path(Url._profile());
             });
         });
     };
 
     function error(data) {
-        $scope.alert = {
-            type: 'error',
-            msg: data.reason
-        };
+        alertify.error(data.reason);
     }
 }

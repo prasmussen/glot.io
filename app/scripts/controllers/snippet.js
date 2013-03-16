@@ -70,16 +70,10 @@ function SnippetController($scope, $routeParams, $location, Utils, Segue, Snippe
     }
 
     function saveSuccess(data) {
-        $scope.alert = {
-            type: 'success',
-            msg: "Snippet saved"
-        };
+        alertify.success("Snippet saved");
     }
 
     function saveError(data) {
-        $scope.alert = {
-            type: 'error',
-            msg: data.reason
-        };
+        alertify.error(data.reason);
     }
 }

@@ -17,11 +17,6 @@
   <button class="btn btn-success" ng-show="user._id == author" ng-click="save(newName, code)"><i class="icon-plus icon-white"></i> Save</button>
   <button class="btn btn-inverse" ng-hide="user._id == author" ng-click="fork(code)"><i class="icon-random icon-white"></i> Fork</button>
 
-  <!-- Alert message -->
-  <div class="margin-top-20" ng-show="alert">
-    <alert type="alert.type" close="alert = null">{{alert.msg}}</alert>
-  </div>
-
   <!-- Result output -->
   <pre class="prettyprint linenums margin-top-20 result-badge result-badge-stdout" ng-show="result.stdout">{{result.stdout}}</pre>
   <pre class="prettyprint linenums margin-top-20 result-badge result-badge-stderr" ng-show="result.stderr">{{result.stderr}}</pre>
