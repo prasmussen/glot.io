@@ -1,7 +1,7 @@
 'use strict';
 
 
-angular.module('glotApp', ["ui", "ui.bootstrap"])
+angular.module('glotApp', ["ui"])
 
 // UrlProvider
 // setRoutes takes an array of objects with attributes 'name' and 'url'.
