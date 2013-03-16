@@ -11,25 +11,25 @@ angular.module('glotApp').factory('Snippets', function(Couch, Response) {
 
         // Get snippet by author
         byAuthor: function(author) {
-            var req = Couch.db("api").view("snippets", "by_author", author);
+            var req = Couch.db("api").view("snippets", "by_author", {key: author});
             return Response.toArray(req);
         },
 
         // Create new snippet
         create: function(language, name, code) {
-             return Couch.db("api").updateHandler("app", "snippet", null, {
+            return Couch.db("api").updateHandler("app", "snippet", null, {
                 language: language,
                 name: name,
-                code: code
+                code: code.trimRight()
             });
         },
 
         // Update existing snippet
         update: function(id, language, name, code) {
-             return Couch.db("api").updateHandler("app", "snippet", id, {
+            return Couch.db("api").updateHandler("app", "snippet", id, {
                 language: language,
                 name: name,
-                code: code
+                code: code.trimRight()
             });
         }
     };
