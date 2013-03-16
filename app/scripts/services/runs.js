@@ -3,22 +3,24 @@
 // Service used to save and retreive runs from the database
 angular.module('glotApp').factory('Runs', function(Couch, Response) {
     return {
-        // Get runs for the given snippetId
-        resultsBySnippet: function(snippetId) {
-            var req = Couch.db("api").view("runs", "results_by_snippet", snippetId);
-            return Response.toArray(req);
-        },
+        // Get result by snippetId and code
+        resultByCode: function(snippetId, code) {
+            code = code.trimRight();
+            var key = [snippetId, CryptoJS.SHA1(code).toString()];
+            var req = Couch.db("api").view("runs", "result_by_codehash", {key: key, limit: 1});
 
-        // Get runs by hash
-        byLanguageCode: function(language, code) {
-            var key = [language, CryptoJS.SHA1(code).toString()];
-            var req = Couch.db("api").view("runs", "by_codehash", key);
-            return Response.toArray(req);
+            // Reject response with zero rows
+            var r = Response.rejectZeroRows(req);
+
+            // Return only result value
+            return Response.getValue(r, "result");
         },
 
         // Create a run request document
         create: function(language, code, snippetId) {
-             return Couch.db("api").updateHandler("app", "run", null, {
+            code = code.trimRight();
+
+            return Couch.db("api").updateHandler("app", "run", null, {
                 language: language,
                 code: code,
                 codehash: CryptoJS.SHA1(code).toString(),

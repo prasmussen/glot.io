@@ -5,10 +5,6 @@ SnippetController.resolve = {
         return Snippets.get($route.current.params.id);
     },
 
-    results: function($route, Runs) {
-        return Runs.resultsBySnippet($route.current.params.id);
-    },
-
     settings: function($route, Settings) {
         return Settings.byLanguage($route.current.params.lang);
     },
@@ -18,15 +14,8 @@ SnippetController.resolve = {
     }
 };
 
-function SnippetController($scope, $routeParams, $location, Utils, Segue, Snippets, Runs, Url, snippet, results, settings, dbInfo) {
+function SnippetController($scope, $routeParams, $location, Utils, Segue, Snippets, Runs, Url, snippet, settings, dbInfo) {
     var language = $routeParams.lang;
-
-    $scope.result = results.filter(function(res) {
-        return res.code === snippet.code.trimRight() && res.hasOwnProperty("result");
-    }).map(function(res) {
-        return res.result;
-    })[0];
-
     $scope.language = language;
 
     $scope.options = {
@@ -41,19 +30,35 @@ function SnippetController($scope, $routeParams, $location, Utils, Segue, Snippe
     $scope.name = snippet.name;
     $scope.newName = snippet.name;
 
+    // Fetch run result for this snippet if it exists
+    $scope.result = Runs.resultByCode(snippet._id, snippet.code);
+
     $scope.fork = function(code) {
+        // Add code to segue and redirect to the compose view
         Segue.setData(code);
         $location.path(Url._composeSnippet(language));
     };
 
     $scope.run = function(code) {
         $scope.result = {stdout: "Running..."};
-        Runs.create(language, code.trimRight(), snippet._id)
-            .success(waitForResult);
+
+        // Check if result already exists in the database
+        var r = Runs.resultByCode(snippet._id, code);
+
+        // Result was found
+        r.success(function(result) {
+            $scope.result = result;
+        });
+
+        // Result was not found, lets create a run request
+        r.error(function() {
+            Runs.create(language, code, snippet._id)
+                .success(waitForResult);
+        });
     };
 
     $scope.save = function(name, code) {
-        Snippets.update(snippet._id, language, name, code.trimRight())
+        Snippets.update(snippet._id, language, name, code)
             .success(saveSuccess)
             .error(saveError);
     };
