@@ -17,14 +17,13 @@ angular.module('glotApp').factory('Runs', function(Couch, Response) {
         },
 
         // Create a run request document
-        create: function(language, code, snippetId) {
+        create: function(language, code) {
             code = code.trimRight();
 
             return Couch.db("api").updateHandler("app", "run", null, {
                 language: language,
                 code: code,
-                codehash: CryptoJS.SHA1(code).toString(),
-                snippet: snippetId,
+                codehash: CryptoJS.SHA1(code).toString()
             });
         },
 

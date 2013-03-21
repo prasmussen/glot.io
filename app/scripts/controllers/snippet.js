@@ -52,7 +52,7 @@ function SnippetController($scope, $routeParams, $location, Utils, Segue, Snippe
 
         // Result was not found, lets create a run request
         r.error(function() {
-            Runs.create(language, code, snippet._id)
+            Runs.create(language, code)
                 .success(waitForResult);
         });
     };

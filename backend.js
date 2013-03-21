@@ -89,7 +89,6 @@ design.updates.run = function(oldDoc, req) {
         newDoc.language = data.language;
         newDoc.code = data.code;
         newDoc.codehash = data.codehash;
-        newDoc.snippet = data.snippet;
         newDoc.author = req.userCtx.name || "_anonymous";
         newDoc.peerhash = crypto.sha1(req.peer);
         newDoc.created = Date.now();
@@ -143,14 +142,12 @@ design.validate_doc_update = function(newDoc, oldDoc, user) {
             required("language");
             required("code");
             required("codehash");
-            required("snippet");
             required("author");
             required("created");
             required("updated");
             required("peerhash");
             unchanged("language");
             unchanged("code");
-            unchanged("snippet");
             unchanged("codehash");
             unchanged("author");
             unchanged("peerhash");
