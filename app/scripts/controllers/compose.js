@@ -51,7 +51,7 @@ function ComposeController($scope, $routeParams, $location, Snippets, Runs, Util
     };
 
     $scope.save = function(name, code) {
-        Snippets.create(language, name, code.trimRight())
+        Snippets.create(language, name, code)
             .success(saveSuccess)
             .error(saveError);
     };

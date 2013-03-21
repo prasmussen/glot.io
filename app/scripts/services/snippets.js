@@ -20,7 +20,7 @@ angular.module('glotApp').factory('Snippets', function(Couch, Response) {
             return Couch.db("api").updateHandler("app", "snippet", null, {
                 language: language,
                 name: name,
-                code: code.trimRight()
+                code: code.trim()
             });
         },
 
@@ -29,7 +29,7 @@ angular.module('glotApp').factory('Snippets', function(Couch, Response) {
             return Couch.db("api").updateHandler("app", "snippet", id, {
                 language: language,
                 name: name,
-                code: code.trimRight()
+                code: code.trim()
             });
         }
     };

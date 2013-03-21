@@ -5,7 +5,7 @@ angular.module('glotApp').factory('Runs', function(Couch, Response) {
     return {
         // Get result by language and code
         resultByCode: function(language, code) {
-            code = code.trimRight();
+            code = code.trim();
             var key = [language, CryptoJS.SHA1(code).toString()];
             var req = Couch.db("api").view("runs", "result_by_codehash", {key: key, limit: 1});
 
@@ -18,7 +18,7 @@ angular.module('glotApp').factory('Runs', function(Couch, Response) {
 
         // Create a run request document
         create: function(language, code) {
-            code = code.trimRight();
+            code = code.trim();
 
             return Couch.db("api").updateHandler("app", "run", null, {
                 language: language,
