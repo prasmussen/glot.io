@@ -35,7 +35,7 @@ db.save("_design/runs", {
         result_by_codehash: {
             map: function(doc) {
                 if (doc.type === "run" && doc.hasOwnProperty("result")) {
-                    // Skip results that dont have a stdout or stderr
+                    // Skip results that have neither a stdout or stderr
                     var r = doc.result;
                     if ((r.hasOwnProperty("stdout") && r.stdout) || (r.hasOwnProperty("stderr") && r.stderr)) {
                         emit([doc.language, doc.codehash], doc);
