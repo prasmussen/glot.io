@@ -41,13 +41,24 @@
           <ul class="nav">
             <li ui-route="{{url.index()}}" ng-class="{active: $uiRoute}"><a href="{{url.index()}}">Home</a></li>
 
-            <!-- Language selection dropdown -->
+            <!-- Compose selection dropdown -->
             <li class="dropdown">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown">Languages <b class="caret"></b></a>
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown">Compose <b class="caret"></b></a>
               <ul class="dropdown-menu">
                 <li class="nav-header">Choose language</li>
                 <li ng-repeat="lang in languages">
-                  <a href="{{url.language(lang._id)}}">{{lang.name}}</a>
+                  <a href="{{url.composeSnippet(lang._id)}}">{{lang.name}}</a>
+                </li>
+              </ul>
+            </li>
+
+            <!-- Examples selection dropdown -->
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown">Examples <b class="caret"></b></a>
+              <ul class="dropdown-menu">
+                <li class="nav-header">Choose language</li>
+                <li ng-repeat="lang in languages">
+                  <a href="{{url.examples(lang._id)}}">{{lang.name}}</a>
                 </li>
               </ul>
             </li>
@@ -94,7 +105,7 @@
     <script src="/scripts/controllers/main.js"></script>
     <script src="/scripts/controllers/snippet.js"></script>
     <script src="/scripts/controllers/root.js"></script>
-    <script src="/scripts/controllers/language.js"></script>
+    <script src="/scripts/controllers/examples.js"></script>
     <script src="/scripts/controllers/compose.js"></script>
     <script src="/scripts/controllers/author.js"></script>
     <script src="/scripts/controllers/signup.js"></script>

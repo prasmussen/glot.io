@@ -99,18 +99,18 @@ angular.module('glotApp', ["ui"])
             templateUrl: "/views/author.html"
         },
         {
-            name: "language",
-            url: "/:lang",
-            controller: LanguageController,
-            resolve: LanguageController.resolve,
-            templateUrl: "/views/language.html"
-        },
-        {
             name: "composeSnippet",
-            url: "/:lang/compose",
+            url: "/:lang",
             controller: ComposeController,
             resolve: ComposeController.resolve,
             templateUrl: "/views/compose.html"
+        },
+        {
+            name: "examples",
+            url: "/:lang/examples",
+            controller: ExamplesController,
+            resolve: ExamplesController.resolve,
+            templateUrl: "/views/examples.html"
         },
         {
             name: "editSnippet",

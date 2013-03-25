@@ -1,6 +1,6 @@
 'use strict';
 
-LanguageController.resolve = {
+ExamplesController.resolve = {
     // Inject list of examples for selected language
     examples: function($route, Examples) {
         return Examples.byLanguage($route.current.params.lang);
@@ -12,7 +12,7 @@ LanguageController.resolve = {
     }
 };
 
-function LanguageController($scope, examples, language) {
+function ExamplesController($scope, examples, language) {
     $scope.examples = examples;
     $scope.language = language;
 }

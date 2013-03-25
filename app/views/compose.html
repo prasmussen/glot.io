@@ -14,6 +14,7 @@
   <textarea ui-codemirror="options" ng-model="code"></textarea>
   <button class="btn btn-primary" ng-click="run(code)"><i class="icon-play icon-white"></i> Run</button>
   <button class="btn btn-success" ng-click="save(name, code)"><i class="icon-plus icon-white"></i> Save</button>
+  <a class="pull-right" href="{{url.examples(language)}}">Examples</a>
 
   <!-- Result output -->
   <pre class="prettyprint linenums margin-top-20 result-badge result-badge-stdout" ng-show="result.stdout">{{result.stdout}}</pre>
