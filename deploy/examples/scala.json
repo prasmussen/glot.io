@@ -1,0 +1,6 @@
+{
+    "language": "scala",
+    "name": "Hello World",
+    "author": "_admin",
+    "code": "object HelloWorld {\n    def main(args: Array[String]) {\n        println(\"Hello, world!\")\n    }\n}\n\nHelloWorld.main(null)\n"
+}

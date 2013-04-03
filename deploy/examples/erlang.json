@@ -1,0 +1,6 @@
+{
+    "language": "erlang",
+    "name": "Hello World",
+    "author": "_admin",
+    "code": "main(_) ->\n    io:format(\"Hello world\\n\").\n"
+}

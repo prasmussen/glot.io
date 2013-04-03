@@ -13,7 +13,13 @@ function RootController($scope, $rootScope, $location, Languages, Profile, User,
         haskell: "icon-prog-haskell",
         perl: "icon-prog-perl",
         ruby: "icon-prog-ruby",
-        go: "icon-prog-golang02"
+        go: "icon-prog-golang02",
+        erlang: "icon-prog-erlang",
+        c: "icon-prog-c",
+        cpp: "icon-prog-cplusplus",
+        clojure: "icon-pl-clojure",
+        scala: "icon-prog-scala",
+        bash: "icon-prog-bash02"
     };
 
     $scope.logout = function() {

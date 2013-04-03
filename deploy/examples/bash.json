@@ -1,0 +1,6 @@
+{
+    "language": "bash",
+    "name": "Hello World",
+    "author": "_admin",
+    "code": "echo \"Hello World\"\n"
+}
