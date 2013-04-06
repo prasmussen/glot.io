@@ -1,6 +1,0 @@
-{
-    "language": "perl",
-    "name": "Hello World",
-    "author": "_admin",
-    "code": "sub main() {\n    print \"Hello World!\\n\";\n}\n\nmain();\n"
-}

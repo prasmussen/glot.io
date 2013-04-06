@@ -1,6 +1,0 @@
-{
-    "language": "cpp",
-    "name": "Hello World",
-    "author": "_admin",
-    "code": "#include <iostream>\nusing namespace std;\n\nint main() {\n    cout << \"Hello World!\";\n    return 0;\n}\n"
-}

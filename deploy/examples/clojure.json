@@ -1,6 +1,0 @@
-{
-    "language": "clojure",
-    "name": "Hello World",
-    "author": "_admin",
-    "code": "(println \"Hello, world!\")\n"
-}

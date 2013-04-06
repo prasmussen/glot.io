@@ -1,6 +1,0 @@
-{
-    "language": "go",
-    "name": "Hello World",
-    "author": "_admin",
-    "code": "package main\n\nimport (\n    \"fmt\"\n)\n\nfunc main() {\n    fmt.Println(\"Hello World\")\n}\n\n"
-}

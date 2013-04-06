@@ -1,6 +1,0 @@
-{
-    "language": "ruby",
-    "name": "Hello World",
-    "author": "_admin",
-    "code": "def main\n    puts \"Hello World!\"\nend\n\nmain()\n"
-}

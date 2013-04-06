@@ -1,6 +1,0 @@
-{
-    "language": "haskell",
-    "name": "Hello World",
-    "author": "_admin",
-    "code": "main = putStrLn \"Hello, World!\"\n"
-}

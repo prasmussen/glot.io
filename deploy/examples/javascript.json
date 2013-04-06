@@ -1,6 +1,0 @@
-{
-    "language": "javascript",
-    "name": "Hello World",
-    "author": "_admin",
-    "code": "function main() {\n    console.log(\"Hello World!\")\n}\n\nmain();\n"
-}
