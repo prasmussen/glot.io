@@ -3,7 +3,9 @@
 function LoginController($scope, $location, User, Url) {
     $scope.logIn = function(email, password) {
         var id = CryptoJS.SHA1(email).toString();
-        User.authenticate(id, password)
+        var hashedPassword = CryptoJS.SHA1(password + id).toString();
+
+        User.authenticate(id, hashedPassword)
             .success(success)
             .error(error);
     };

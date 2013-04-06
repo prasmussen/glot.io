@@ -14,12 +14,15 @@ function ProfileController($scope, $route, $timeout, User, Profile) {
     };
 
     $scope.resetPassword = function(password, user) {
+        var id = user._id;
+        var hashedPassword = CryptoJS.SHA1(password + id).toString();
+
         // Set new password
-        User.setPassword(user._id, password)
+        User.setPassword(id, hashedPassword)
             .error(error)
             .success(function() {
                 // Authenticate user with new password
-                User.authenticate(user._id, password)
+                User.authenticate(id, hashedPassword)
                     .then(resetSuccess);
             });
     };
