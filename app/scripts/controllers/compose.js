@@ -6,12 +6,17 @@ ComposeController.resolve = {
         return Settings.byLanguage($route.current.params.lang);
     },
 
+    // Inject the hello world example
+    helloWorld: function($route, Examples) {
+        return Examples.byName($route.current.params.lang, "Hello World");
+    },
+
     dbInfo: function(Couch) {
         return Couch.db("api").info();
     }
 };
 
-function ComposeController($scope, $routeParams, $location, Snippets, Runs, Utils, Segue, Url, settings, dbInfo) {
+function ComposeController($scope, $routeParams, $location, Snippets, Runs, Utils, Segue, Url, settings, helloWorld, dbInfo) {
     var language = $routeParams.lang;
     $scope.language = language;
 
@@ -28,8 +33,13 @@ function ComposeController($scope, $routeParams, $location, Snippets, Runs, Util
         // Fill editor with forked code
         $scope.code = Segue.getData();
     } else {
-        // Fill editor with 10 empty lines
-        $scope.code = Utils.ensureMinLines("", 10);
+        var code = "";
+        if (helloWorld && helloWorld.hasOwnProperty("code")) {
+            // Set the hello world example as the initial code
+            code = helloWorld.code;
+        }
+
+        $scope.code = Utils.ensureMinLines(code, 10);
     }
 
     $scope.run = function(code) {
