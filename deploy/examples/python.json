@@ -2,5 +2,5 @@
     "language": "python",
     "name": "Hello World",
     "author": "_admin",
-    "code": "def main():\n    print \"Hello World\"\n    \n    \nif __name__ == \"__main__\":\n    main()\n"
+    "code": "def main():\n    print(\"Hello World\")\n    \n    \nif __name__ == \"__main__\":\n    main()\n"
 }
