@@ -7,23 +7,29 @@ var config = JSON.parse(fs.readFileSync(path.join(__dirname, "config.json"), "ut
 var db = new(cradle.Connection)(config.url, config.port, {auth: {username: config.username, password: config.password}}).database(config.database);
 
 
-// Update examples
-glob("examples/*.json", function(err, files) {
-    if (err) {
-        console.log(err);
+glob.sync("examples/**/*.*").forEach(function(fpath) {
+    var parts = fpath.split(path.sep);
+
+    if (parts.length !== 4) {
+        console.log("Skipping: " + fpath);
         return;
     }
 
-    files.forEach(function(file) {
-        var data = fs.readFileSync(file, "utf8");
-        updateExample(JSON.parse(data));
-    });
+    var code = fs.readFileSync(fpath, "utf8");
+
+    var data = {
+        type: "example",
+        author: "_admin",
+        language: parts[1],
+        name: parts[2],
+        code: code
+    };
+
+    updateExample(data);
 });
 
-function updateExample(data) {
-    // Set document type
-    data.type = "example";
 
+function updateExample(data) {
     // Check if there exist a document with the same name and language
     db.view('examples/by_name', {key: [data.language, data.name]}, function(err, docs) {
         if (err) {
