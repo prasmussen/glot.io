@@ -1,6 +1,8 @@
 node_modules
-push.sh
-deploy/config.json
+push*.sh
+deploy/config*.json
+deploy/deploy*.sh
+deploy/glot-exec-tests.py
 
 # vim files
 .*.sw[a-z]
