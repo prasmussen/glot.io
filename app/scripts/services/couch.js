@@ -106,11 +106,16 @@ angular.module('glotApp').factory("Couch", function($http, $timeout, Response) {
 
                 function changeSuccess(res) {
                     timeout = 100;
-                    if (active) {
-                        options.since = res.last_seq;
-                        triggerListeners(res)
-                        getChangesSince();
+                    if (!active) {
+                        return;
                     }
+
+                    // Ignore heartbeats
+                    if (res) {
+                        options.since = res.last_seq;
+                        triggerListeners(res);
+                    }
+                    getChangesSince();
                 }
 
                 function changeError(res) {
