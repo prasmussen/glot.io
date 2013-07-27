@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('glotApp').factory("Couch", function($http, Response) {
+angular.module('glotApp').factory("Couch", function($http, $timeout, Response) {
     var PREFIX = "/";
 
     function urlBuilder(base) {
