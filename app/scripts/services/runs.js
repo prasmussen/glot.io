@@ -52,7 +52,9 @@ angular.module('glotApp').factory('Runs', function(Couch, Response) {
                 }
             });
 
-            return feed.stop;
+            return {
+                stop: feed.stop
+            };
         }
     };
 });

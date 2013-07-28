@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('glotApp').factory("Couch", function($http, $timeout, Response) {
+angular.module('glotApp').factory("Couch", function($http, $timeout, $q, Response) {
     var PREFIX = "/";
 
     function urlBuilder(base) {
@@ -78,6 +78,7 @@ angular.module('glotApp').factory("Couch", function($http, $timeout, Response) {
             changes: function(options) {
                 var listeners = [];
                 var active = true;
+                var canceler;
                 var timeout = 100;
 
                 var promise = {
@@ -87,6 +88,10 @@ angular.module('glotApp').factory("Couch", function($http, $timeout, Response) {
 
                     stop: function() {
                         active = false;
+                        if (canceler) {
+                            // Aborts the $http request if it isn't finished.
+                            canceler.resolve();
+                        }
                     }
                 };
 
@@ -99,9 +104,10 @@ angular.module('glotApp').factory("Couch", function($http, $timeout, Response) {
 
                 // TODO: fix url, all options are required atm
                 function getChangesSince() {
+                    canceler = $q.defer();
                     var url = join("_changes");
                     url += "?feed=longpoll&filter=" + options.filter + "&include_docs=" + options.include_docs + "&id=" + options.query_params.id + "&since=" + options.since;
-                    $http.get(url).success(changeSuccess).error(changeError);
+                    $http.get(url, {timeout: canceler.promise}).success(changeSuccess).error(changeError);
                 }
 
                 function changeSuccess(res) {
