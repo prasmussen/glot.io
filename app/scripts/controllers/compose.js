@@ -16,7 +16,7 @@ ComposeController.resolve = {
     }
 };
 
-function ComposeController($scope, $routeParams, $location, Snippets, Runs, Utils, Segue, Url, settings, helloWorld, dbInfo) {
+function ComposeController($scope, $rootScope, $routeParams, $location, Snippets, Runs, Utils, Segue, Url, settings, helloWorld, dbInfo) {
     var language = $routeParams.lang;
     $scope.language = language;
 
@@ -67,8 +67,13 @@ function ComposeController($scope, $routeParams, $location, Snippets, Runs, Util
     };
 
     function waitForResult(doc) {
-        Runs.onResult(doc._id, dbInfo.update_seq, function(doc) {
+        var stop = Runs.onResult(doc._id, dbInfo.update_seq, function(doc) {
             $scope.result = doc.result;
+        });
+
+        // Stop listening for result if we leave the view
+        $rootScope.$on("$routeChangeStart", function() {
+            stop();
         });
     }
 

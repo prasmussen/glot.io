@@ -51,6 +51,8 @@ angular.module('glotApp').factory('Runs', function(Couch, Response) {
                     callback(doc);
                 }
             });
+
+            return feed.stop;
         }
     };
 });
