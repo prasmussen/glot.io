@@ -14,7 +14,8 @@ SnippetController.resolve = {
     }
 };
 
-function SnippetController($scope, $routeParams, $location, Utils, Segue, Snippets, Runs, Url, snippet, settings, dbInfo) {
+function SnippetController($scope, $rootScope, $routeParams, $location, Utils, Segue, Snippets, Runs, Url, snippet, settings, dbInfo) {
+    var waitingForResult;
     var language = $routeParams.lang;
     $scope.language = language;
 
@@ -40,6 +41,10 @@ function SnippetController($scope, $routeParams, $location, Utils, Segue, Snippe
     };
 
     $scope.run = function(code) {
+        if (waitingForResult) {
+            waitingForResult.stop();
+        }
+
         $scope.result = {stdout: "Running..."};
 
         // Check if result already exists in the database
@@ -58,14 +63,23 @@ function SnippetController($scope, $routeParams, $location, Utils, Segue, Snippe
     };
 
     $scope.save = function(name, code) {
+        if (waitingForResult) {
+            waitingForResult.stop();
+        }
+
         Snippets.update(snippet._id, language, name, code)
             .success(saveSuccess)
             .error(saveError);
     };
 
     function waitForResult(doc) {
-        Runs.onResult(doc._id, dbInfo.update_seq, function(doc) {
+        waitingForResult = Runs.onResult(doc._id, dbInfo.update_seq, function(doc) {
             $scope.result = doc.result;
+        });
+
+        // Stop listening for result if we leave the view
+        $rootScope.$on("$routeChangeStart", function() {
+            waitingForResult.stop();
         });
     }
 

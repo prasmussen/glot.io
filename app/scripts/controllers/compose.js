@@ -17,6 +17,7 @@ ComposeController.resolve = {
 };
 
 function ComposeController($scope, $rootScope, $routeParams, $location, Snippets, Runs, Utils, Segue, Url, settings, helloWorld, dbInfo) {
+    var waitingForResult;
     var language = $routeParams.lang;
     $scope.language = language;
 
@@ -43,6 +44,10 @@ function ComposeController($scope, $rootScope, $routeParams, $location, Snippets
     }
 
     $scope.run = function(code) {
+        if (waitingForResult) {
+            waitingForResult.stop();
+        }
+
         $scope.result = {stdout: "Running..."};
 
         // Check if result already exists in the database
@@ -61,19 +66,23 @@ function ComposeController($scope, $rootScope, $routeParams, $location, Snippets
     };
 
     $scope.save = function(name, code) {
+        if (waitingForResult) {
+            waitingForResult.stop();
+        }
+
         Snippets.create(language, name, code)
             .success(saveSuccess)
             .error(saveError);
     };
 
     function waitForResult(doc) {
-        var stop = Runs.onResult(doc._id, dbInfo.update_seq, function(doc) {
+        waitingForResult = Runs.onResult(doc._id, dbInfo.update_seq, function(doc) {
             $scope.result = doc.result;
         });
 
         // Stop listening for result if we leave the view
         $rootScope.$on("$routeChangeStart", function() {
-            stop();
+            waitingForResult.stop();
         });
     }
 
