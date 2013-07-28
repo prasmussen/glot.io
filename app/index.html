@@ -23,6 +23,9 @@
 
     <!-- Custom css -->
     <link rel="stylesheet" href="/styles/main.css">
+
+    <!-- Fix 1.1.5 routing bug. TODO: Remove when fixed -->
+    <base href="/" />
   </head>
   <body ng-app="glotApp" ng-controller="RootController">
     <!--[if lt IE 7]>
@@ -43,7 +46,7 @@
 
             <!-- Compose selection dropdown -->
             <li class="dropdown">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown">Compose <b class="caret"></b></a>
+              <a href class="dropdown-toggle" data-toggle="dropdown">Compose <b class="caret"></b></a>
               <ul class="dropdown-menu">
                 <li class="nav-header">Choose language</li>
                 <li ng-repeat="lang in languages">
@@ -54,7 +57,7 @@
 
             <!-- Examples selection dropdown -->
             <li class="dropdown">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown">Examples <b class="caret"></b></a>
+              <a href class="dropdown-toggle" data-toggle="dropdown">Examples <b class="caret"></b></a>
               <ul class="dropdown-menu">
                 <li class="nav-header">Choose language</li>
                 <li ng-repeat="lang in languages">
@@ -66,10 +69,10 @@
 
           <!-- Login / profile / logout dropdown -->
           <ul class="nav pull-right ng-cloak">
-            <li ng-show="routeLoading"><a href="#"><i class="icon-time"></i></a></li>
+            <li ng-show="routeLoading"><a href><i class="icon-time"></i></a></li>
             <li ng-hide="user._id"><a href="{{url.login()}}">Log In</a></li>
             <li class="dropdown" ng-show="user.name">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon-user"></i> {{user.name}} <b class="caret"></b></a>
+              <a href class="dropdown-toggle" data-toggle="dropdown"><i class="icon-user"></i> {{user.name}} <b class="caret"></b></a>
               <ul class="dropdown-menu">
                 <li class="nav-header">Actions</li>
                 <li><a href="{{url.authorSnippets(user._id)}}">My snippets</a></li>
