@@ -233,6 +233,11 @@ design.validate_doc_update = function(newDoc, oldDoc, user) {
     }
 };
 
+// Filter that return only snippets
+design.filters.snippets = function(doc, req) {
+    return doc.type === "snippet";
+};
+
 // Filter that return only run requests
 design.filters.run_request = function(doc, req) {
     return doc.type === "run" && !doc.hasOwnProperty("result");
